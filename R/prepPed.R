@@ -105,6 +105,7 @@ prepPed <- function(pedigree, gender = NULL, check = TRUE){
           } 
         topPed[, gender] <- c(rep(damgender, length(missdam)), rep(siregender, length(misssire)))
      }
+     topPed<- unique(topPed)
      ped_fixed <- rbind(topPed, pedigree)
    }
  npf <- nrow(ped_fixed)
