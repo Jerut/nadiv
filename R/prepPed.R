@@ -93,7 +93,13 @@ prepPed <- function(pedigree, gender = NULL, check = TRUE){
  if(length(missdam) == 0 & length(misssire) == 0){
    ped_fixed <- pedigree
  } else{
-     topPed <- data.frame(c(missdam, misssire), rep(NA, length(missdam) + length(misssire)), rep(NA, length(missdam) + length(misssire)), matrix(NA, nrow = (length(missdam) + length(misssire)), ncol = ncol(pedigree) - 3))
+ 	
+	miss_dmsr<- c(missdam, misssire)
+	miss_dmsr<- unique(miss_dmsr) 	
+	lnmiss_dmsr<- length(miss_dmsr)
+	
+     topPed <- data.frame(miss_dmsr, rep(NA, lnmiss_dmsr), rep(NA, lnmiss_dmsr), matrix(NA, nrow = (lnmiss_dmsr), ncol = ncol(pedigree) - 3))
+     
   names(topPed) <- names(pedigree)
      if(!is.null(gender)){
         if(is.factor(pedigree[, gender])){
@@ -105,7 +111,6 @@ prepPed <- function(pedigree, gender = NULL, check = TRUE){
           } 
         topPed[, gender] <- c(rep(damgender, length(missdam)), rep(siregender, length(misssire)))
      }
-     topPed<- unique(topPed)
      ped_fixed <- rbind(topPed, pedigree)
    }
  npf <- nrow(ped_fixed)
